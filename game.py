@@ -406,26 +406,23 @@ else:
         x_ = info[1] * (cell_width + 1) + (2 - cell_width)
         y_ = len(chessboard) - info[2] - 2
         cb_ = make_chessboard([x + 1, y])
-        if solution(x__=x_ + (cell_width + 1), y__=y_, cb=cb_, cw=cb_[1], tm=total_moves):
-            game_on = True
-            info = set_position(info[0], cell_width, current_position=[info[1], info[2]])
+        game_on = True
+        info = set_position(info[0], cell_width, current_position=[info[1], info[2]])
+        board = info[0]
+        while game_on:
+
+            info = set_position(board, cell_width, current_position=[info[1], info[2]])
             board = info[0]
-            while game_on:
 
-                info = set_position(board, cell_width, current_position=[info[1], info[2]])
-                board = info[0]
-
-            else:
-                game_completed = True
-                for row in board:
-                    if row.count("_") >= cell_width:
-                        print("No more possible moves!")
-                        print(f"Your knight visited {total_moves - 1} squares!")
-                        game_completed = False
-                        break
-                if game_completed:
-                    print("What a great tour! Congratulations!")
         else:
-            print("No solution exists!")
+            game_completed = True
+            for row in board:
+                if row.count("_") >= cell_width:
+                    print("No more possible moves!")
+                    print(f"Your knight visited {total_moves - 1} squares!")
+                    game_completed = False
+                    break
+            if game_completed:
+                print("What a great tour! Congratulations!")
     else:
         print("No solution exists!")
